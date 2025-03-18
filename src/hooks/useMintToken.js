@@ -26,10 +26,9 @@ const useMintToken = () => {
         );
 
         try {
-            // Setup event listener for Minted event
-            contract.on("Minted", (to, tokenId) => {
-                setNextTokenId(tokenId.add(1)); 
-            });
+            // contract.on("Minted", (to, tokenId) => {
+            //     setNextTokenId(tokenId.add(1)); 
+            // });
             
             const tx = await contract.mint({ value: mintPrice });
             const receipt = await tx.wait();
@@ -40,11 +39,11 @@ const useMintToken = () => {
 
             alert("Token minted successfully");
             
-            // Clean up event listener
-            contract.removeAllListeners("Minted");
+            
+            // contract.removeAllListeners("Minted");
         } catch (error) {
             console.error("error: ", error);
-            contract?.removeAllListeners("Minted");
+            // contract?.removeAllListeners("Minted");
         }
     }, [address, chainId, maxSupply, mintPrice, nextTokenId, wagmiConfig, setNextTokenId]);
 };

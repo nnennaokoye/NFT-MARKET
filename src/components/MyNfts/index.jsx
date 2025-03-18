@@ -1,6 +1,6 @@
 import React from "react";
 import { useAppContext } from "../../contexts/appContext";
-import OwnedNFTCard from "../NFTCard";
+import OwnedNFTCard from "../OwnedNftCard";
 import { useAccount } from "wagmi";
 import { Icon } from "@iconify/react/dist/iconify.js";
 

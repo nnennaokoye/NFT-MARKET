@@ -1,3 +1,9 @@
+import { useState } from "react";
+import { useAppContext } from "../../contexts/appContext";
+import { Icon } from "@iconify/react/dist/iconify.js";
+
+
+
 const TransferModal = ({ tokenId, metadata, onClose }) => {
     const [recipientAddress, setRecipientAddress] = useState("");
     const [isTransferring, setIsTransferring] = useState(false);

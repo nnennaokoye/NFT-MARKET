@@ -7,12 +7,15 @@ import useMintToken from "./hooks/useMintToken";
 import Tabs from "./components/Tabs";
 import MyNFTs from "./components/MyNfts";
 import { Icon } from "@iconify/react/dist/iconify.js";
+import { formatEther } from "ethers";
 
 function App() {
     const { nextTokenId, tokenMetaData, mintPrice } = useAppContext();
     const [activeTab, setActiveTab] = useState("marketplace");
     const tokenMetaDataArray = Array.from(tokenMetaData.values());
     const mintToken = useMintToken();
+
+    // console.log("MINT PRICE APP>JSX:", formatEther(Number(mintPrice)));
 
     return (
         <div className="flex flex-col min-h-screen bg-gray-50">

@@ -1,7 +1,7 @@
 import { Icon } from "@iconify/react/dist/iconify.js";
 import React, { useState } from "react";
 import { truncateString } from "../../utils";
-import TransferModal from "./TransferModal";
+import TransferModal from "../TransferModal";
 
 const OwnedNFTCard = ({ metadata, tokenId }) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -49,7 +49,7 @@ const OwnedNFTCard = ({ metadata, tokenId }) => {
                 <span>Transfer NFT</span>
             </button>
 
-            {/* Render TransferModal only when needed */}
+            
             {isModalOpen && (
                 <TransferModal tokenId={tokenId} metadata={metadata} onClose={() => setIsModalOpen(false)} />
             )}

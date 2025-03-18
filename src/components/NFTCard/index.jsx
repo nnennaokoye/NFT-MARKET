@@ -4,7 +4,8 @@ import React, { useState } from "react";
 import { truncateString } from "../../utils";
 
 const NFTCard = ({ metadata, mintPrice, tokenId, nextTokenId, mintNFT }) => {
-    const isOwned = Number(nextTokenId) > tokenId;
+    const isOwned = Number(nextTokenId) > tokenId; 
+
     const [isMinting, setIsMinting] = useState(false);
     
     const handleMint = async () => {
@@ -14,6 +15,9 @@ const NFTCard = ({ metadata, mintPrice, tokenId, nextTokenId, mintNFT }) => {
         } finally {
             setIsMinting(false);
         }
+
+        console.log("tokenId", tokenId);
+        console.log
     };
 
     return (
@@ -54,15 +58,15 @@ const NFTCard = ({ metadata, mintPrice, tokenId, nextTokenId, mintNFT }) => {
                 <div className="flex gap-2 items-center py-2 border-t border-gray-100">
                     <Icon icon="ph:currency-eth-duotone" className="w-6 h-6 text-primary" />
                     <span className="font-semibold text-primary">
-                    {mintPrice ? `${formatEther(mintPrice)} ETH` : "Price unavailable"}
+                    {`${formatEther(Number(mintPrice))} ETH`}
                    </span>
                     </div>
 
                 <button
-                    disabled={isOwned || isMinting}
+                    disabled={Number(nextTokenId) !== tokenId}
                     onClick={handleMint}
                     className={`w-full p-3 rounded-md font-medium flex items-center justify-center gap-2 transition-all ${
-                        isOwned
+                        isOwned || (Number(nextTokenId) !== tokenId)
                             ? "bg-gray-200 text-gray-500 cursor-not-allowed"
                             : "bg-primary text-white hover:bg-primary/90"
                     }`}
@@ -80,6 +84,7 @@ const NFTCard = ({ metadata, mintPrice, tokenId, nextTokenId, mintNFT }) => {
                     ) : (
                         <>
                             <Icon icon="ph:lightning-duotone" className="w-5 h-5" />
+                            
                             <span>Mint NFT</span>
                         </>
                     )}

@@ -50,7 +50,9 @@ export const AppProvider = ({ children }) => {
 
         contract
             .mintPrice()
-            .then((price) => setMintPrice(price))
+            .then((price) => {setMintPrice(price)
+                console.log("price: ", price);
+            })
             .catch((error) => console.error("error: ", error));
     }, []);
 
@@ -116,7 +118,30 @@ export const AppProvider = ({ children }) => {
         };
         
         fetchOwnedTokens();
+
     }, [address, nextTokenId]);
+
+    useEffect(() => {
+        const contract = new Contract(
+            import.meta.env.VITE_NFT_CONTRACT_ADDRESS,
+            NFT_ABI,
+            getReadOnlyProvider()
+        );
+
+        const handleNextTokenId = (owner, id) => {
+            console.log("Minted event", owner, id);
+            // setNextTokenId(id.add(1));
+            contract
+            .nextTokenId()
+            .then((id) => setNextTokenId(id))
+            .catch((error) => console.error("error: ", error));
+        }
+
+        console.log("Listening for Minted event", nextTokenId);
+        contract.on("Minted", handleNextTokenId);
+
+        return () => contract.off("Minted", handleNextTokenId);
+    }, [nextTokenId]);
 
     // Function to transfer a token
     const transferToken = async (tokenId, recipientAddress) => {
